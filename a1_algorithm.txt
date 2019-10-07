@@ -1,0 +1,61 @@
+0. Check params.  If len(sys.argv) < 3, run usage()
+1. Store first parameter as user_date, store second parameter as change_day, if len(sys.argv) > 3 and sys.argv[3] == '--step' then set step=True
+
+2. def leap_year(year):
+    If int(user_year) % 4 == 0:
+        return 29
+    else:
+        return 28
+3. def days_in_month(year):
+    return {0, 31, leap_year(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31} #Instead of a dictionary, we are using a list with a null entry at [0], which lets us reference the number of days in a month by simply looking up the element of the array whose index is the month.  
+
+4. def valid_date(given_date):
+    if len(given_date) != 10:
+        return False
+    if given_date[0:4] < 1582: #Start of Gregorian Calendar
+        return False
+    if given_date[6:8] < 1:
+        return False
+    if given_date[6:8] > 12:
+        return False
+    if given_date[9:] > days_in_month(given_date[6:8]):
+        return False
+    return True
+
+5. def after(given_date):
+    last_day = days_in_month(given_date[0:4])[given_date[6:8]] #given yyyy/mm/dd, the last_day = days_in_month(yyyy)[mm]
+    if given_date[9:] = last_day:
+        new_date = yyyy/mm+1/01
+    	if new_date[6:8] = 13:
+            new_date = yyyy+1/01/01
+    else:
+        new_date = yyyy/mm/dd+1
+    return new_date
+
+6. def before(given_date):
+    if given_date[9:] == 01:
+        if given_date[6:] == 01/01:
+            new_date = yyyy-1/12/31
+        else:
+            new_date = yyyy/given_date[6:8]-1/days_in_month(given_date[0:4])[given_date[6:8]-1] #last_day = yyyy/mm-1/days_in_month(yyyy)[mm-1]
+    else:
+        new_date = yyyy/mm/dd-1
+    return new_date
+
+7. def dbda(user_date, change_day):
+	new_date = user_date
+	if change_day > 0: 
+		cycle = 0	
+		while cycle < change_day:
+			new_date = after(new_date)
+			if step=True, print new_date
+			cycle+=1
+	elif change_day < 0:
+		cycle = 0
+                while cycle > change_day:
+		    new_date = before(new_date)
+		    if step=true, print new_date
+		    cycle -= 1
+	return new_date
+
+

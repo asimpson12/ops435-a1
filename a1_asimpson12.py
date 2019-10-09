@@ -55,11 +55,18 @@ def after(given_date):
     '''Increments the given date by one day, and returns it in yyyy/mm/dd format as a string'''
     last_day = int(days_in_month(int(given_date[0:4]))[int(given_date[5:7])])
     if int(given_date[8:]) == last_day:
-        new_date = given_date[0:5] + str(int(given_date[5:7]) + 1) + "/01"
+        if int(given_date[5:7]) < 9:
+            new_date = given_date[0:5] + "0" + str(int(given_date[5:7]) + 1) + "/01"
+        else:
+            new_date = given_date[0:5] + str(int(given_date[5:7]) + 1) + "/01"
+        
         if new_date[5:7] == "13":
             new_date = str(int(given_date[0:4]) + 1) + "/01/01"
     else:
-        new_date = given_date[0:8] + str(int(given_date[8:]) + 1)
+        if int(given_date[8:]) < 9:
+            new_date = given_date[0:8] + "0" + str(int(given_date[8:]) + 1)
+        else:
+            new_date = given_date[0:8] + str(int(given_date[8:]) + 1)
     return new_date
  
 
@@ -102,3 +109,4 @@ d = user_date[8:]
 
 #print(days_in_month(int(y)))
 #print(valid_date(user_date))
+print(after(user_date))

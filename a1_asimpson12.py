@@ -104,43 +104,38 @@ def dbda(given_date, day_change):
             cycle -= 1
     return new_date
 
+# Main Program
 
-#=====================Handle Arguments=============================
+if __name__ == "__main__":
 
-#Check for proper number of arguments, print usage msg if improper
-if len(sys.argv) < 3:
-    usage()
-    exit()
-if sys.argv[1] == "--step" and len(sys.argv) < 4:
-    usage()
-    exit()
+    #=====================Handle Arguments=============================
 
-#Check for --step argument, store input as appropriate
-if len(sys.argv) == 4 and sys.argv[1] == "--step":
-    step = True
-    user_date = sys.argv[2]
-    amt_to_change = sys.argv[3]
-else:
-    step = False
-    user_date = sys.argv[1]
-    amt_to_change = sys.argv[2]
+    #Check for proper number of arguments, print usage msg if improper
+    if len(sys.argv) < 3:
+        usage()
+        exit()
+    if sys.argv[1] == "--step" and len(sys.argv) < 4:
+        usage()
+        exit()
 
-#Verify date is valid
-if valid_date(user_date) != "OK":
-    print("Error: wrong " + valid_date(user_date) + " entered.")
+    #Check for --step argument, store input as appropriate
+    if len(sys.argv) == 4 and sys.argv[1] == "--step":
+        step = True
+        user_date = sys.argv[2]
+        amt_to_change = sys.argv[3]
+    else:
+        step = False
+        user_date = sys.argv[1]
+        amt_to_change = sys.argv[2]
 
-#Alias date string ranges for code readability
-y = user_date[0:4]
-m = user_date[5:7]
-d = user_date[8:]
+    #Verify date is valid
+    if valid_date(user_date) != "OK":
+        print("Error: wrong " + valid_date(user_date) + " entered.")
+    
+    #Call principal function with user arguments
+    date_out = dbda(user_date, int(amt_to_change))
+    
+    #Print Output
+    print(date_out)
 
-#===========================Test Prints========================
-#print("year: " + y)
-#print("month: " + m)
-#print("day: " + d)
 
-#print(days_in_month(int(y)))
-#print(valid_date(user_date))
-#print(before(user_date))
-#print(after(user_date))
-print(dbda(user_date, int(amt_to_change)))

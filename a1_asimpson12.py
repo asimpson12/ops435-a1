@@ -38,18 +38,18 @@ def valid_date(given_date):
     of days specified isn't greater than the length of the given month
     '''
     if len(set(given_date) - {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "/"}) != 0:
-        return False
+        return "date"
     if len(given_date) != 10:
-        return False
+        return "date"
     if given_date[4] != '/' or given_date[7] != '/':
-        return False
+        return "date"
     if int(given_date[5:7]) < 1 or int(given_date[5:7]) > 12:
-        return False
+        return "month"
     if int(given_date[8:]) > days_in_month(int(given_date[0:4]))[int(given_date[5:7])]: #if the day value of given date is greater than the entry [month] in list days_in_month[year], false
-        return False
+        return "day"
     if int(given_date[0:4]) < 1582: #Gregorian Calendar was made official by the Vatican in 1582, spawning its adoption throughout Europe.  Using this date as init of our calendar system.  
-        return False
-    return True
+        return "year"
+    return "OK"
 
 def after(given_date):
     '''Increments the given date by one day, and returns it in yyyy/mm/dd format as a string'''
@@ -86,9 +86,9 @@ else:
     user_date = sys.argv[1]
     amt_to_change = sys.argv[2]
 
-#Store user input
-#user_date = sys.argv[1]
-#amt_to_change = sys.argv[2]
+#Verify date is valid
+if valid_date(user_date) != "OK":
+    print("Error: wrong " + valid_date(user_date) + " entered.")
 
 #Alias date string ranges for code readability
 y = user_date[0:4]
@@ -102,4 +102,3 @@ d = user_date[8:]
 
 #print(days_in_month(int(y)))
 #print(valid_date(user_date))
-print(after(user_date))

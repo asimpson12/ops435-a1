@@ -86,6 +86,24 @@ def before(given_date):
             new_date = given_date[0:8] + str(int(given_date[8:]) - 1)
     return new_date
 
+def dbda(given_date, day_change):
+    new_date = given_date
+    if day_change > 0:
+        cycle = 0
+        while cycle < day_change:
+            new_date = after(new_date)
+            if step == True:
+                print(new_date)
+            cycle += 1
+    elif day_change < 0:
+        cycle = 0
+        while cycle > day_change:
+            new_date = before(new_date)
+            if step == True:
+                print(new_date)
+            cycle -= 1
+    return new_date
+
 
 #=====================Handle Arguments=============================
 
@@ -124,4 +142,5 @@ d = user_date[8:]
 #print(days_in_month(int(y)))
 #print(valid_date(user_date))
 #print(before(user_date))
-print(after(user_date))
+#print(after(user_date))
+print(dbda(user_date, int(amt_to_change)))

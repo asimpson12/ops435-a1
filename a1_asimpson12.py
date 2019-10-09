@@ -55,7 +55,7 @@ def after(given_date):
     '''Increments the given date by one day, and returns it in yyyy/mm/dd format as a string'''
     last_day = int(days_in_month(int(given_date[0:4]))[int(given_date[5:7])])
     if int(given_date[8:]) == last_day:
-        if int(given_date[5:7]) < 9:
+        if int(given_date[5:7]) < 9: #Check if new month value is single digit, prepend 0 to it if so
             new_date = given_date[0:5] + "0" + str(int(given_date[5:7]) + 1) + "/01"
         else:
             new_date = given_date[0:5] + str(int(given_date[5:7]) + 1) + "/01"
@@ -63,14 +63,28 @@ def after(given_date):
         if new_date[5:7] == "13":
             new_date = str(int(given_date[0:4]) + 1) + "/01/01"
     else:
-        if int(given_date[8:]) < 9:
+        if int(given_date[8:]) < 9: #Check if new day value is single digit, prepend a 0 if so
             new_date = given_date[0:8] + "0" + str(int(given_date[8:]) + 1)
         else:
             new_date = given_date[0:8] + str(int(given_date[8:]) + 1)
     return new_date
  
-
-    
+def before(given_date):
+    '''Decrements the given date by one day, and returns it in yyyy/mm/dd format as a string'''
+    if given_date[8:] == "01":
+        if given_date[5:] == "01/01":
+            new_date = str(int(given_date[0:4]) - 1) + "/12/31"
+        else:
+            if (int(given_date[5:7]) - 1) < 10:
+                new_date = given_date[0:4] + "/0" + str(int(given_date[5:7]) - 1) + "/" + str(days_in_month(int(given_date[0:4]))[int(given_date[5:7]) - 1])
+            else:
+                new_date = given_date[0:4] + "/" + str(int(given_date[5:7]) - 1) + "/" + str(days_in_month(int(given_date[0:4]))[int(given_date[5:7]) - 1])
+    else:
+        if int(given_date[8:]) < 11:
+            new_date = given_date[0:8] + "0" + str(int(given_date[8:]) - 1)
+        else:
+            new_date = given_date[0:8] + str(int(given_date[8:]) - 1)
+    return new_date
 
 
 #=====================Handle Arguments=============================
@@ -109,4 +123,5 @@ d = user_date[8:]
 
 #print(days_in_month(int(y)))
 #print(valid_date(user_date))
+#print(before(user_date))
 print(after(user_date))

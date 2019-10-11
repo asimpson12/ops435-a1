@@ -130,12 +130,15 @@ if __name__ == "__main__":
 
     #Verify date is valid
     if valid_date(user_date) != "OK":
-        print("Error: wrong " + valid_date(user_date) + " entered.")
+        print("Error: wrong " + valid_date(user_date) + " entered")
+        exit()
     
     #Call principal function with user arguments
     date_out = dbda(user_date, int(amt_to_change))
     
     #Print Output
-    print(date_out)
+    if step == False:
+        print(date_out)
+
 
 
